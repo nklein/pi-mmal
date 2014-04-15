@@ -26,7 +26,7 @@
                              '(:pointer (:struct mmal-component-t)))
     (let ((ret (mmal-component-create name component-ptr-ptr)))
       (values ret
-              (when (= ret 0)
+              (when (= ret :mmal-success)
                 (cffi:mem-aref component-ptr-ptr
                                '(:pointer (:struct mmal-component-t))))))))
 

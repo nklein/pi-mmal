@@ -8,9 +8,11 @@
       :components ((:file "package")
                    (:file "mmal" :depends-on ("package"))
                    (:file "types" :depends-on ("package"))
+                   (:file "port" :depends-on ("package"
+                                              "types"))
                    (:file "component" :depends-on ("package"
-                                                   "mmal"
-                                                   "types"))))))
+                                                   "types"
+                                                   "port"))))))
 
 (defmethod asdf:perform ((op asdf:test-op)
                          (system (eql (asdf:find-system :pi-mmal))))
@@ -28,4 +30,5 @@
       :components ((:file "package")
                    (:file "mmal" :depends-on ("package"))
                    (:file "types" :depends-on ("package"))
+                   (:file "port" :depends-on ("package"))
                    (:file "component" :depends-on ("package"))))))

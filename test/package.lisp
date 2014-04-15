@@ -11,6 +11,7 @@
         (fiveam:*debug-on-failure* debug-on-failure))
     (let* ((suites '(mmal-exports
                      mmal-types-exports
+                     mmal-port-exports
                      mmal-component-exports))
            (results (reduce #'append suites
                             :key #'fiveam:run

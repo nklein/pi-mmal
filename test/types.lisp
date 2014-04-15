@@ -20,7 +20,7 @@
       (fiveam:is (= (enum-value :mmal-enxio)      6))
       (fiveam:is (= (enum-value :mmal-eio)        7))
       (fiveam:is (= (enum-value :mmal-espipe)     8))
-      (fiveam:is (= (enum-value :mmal-ecorrupt)    9))
+      (fiveam:is (= (enum-value :mmal-ecorrupt)   9))
       (fiveam:is (= (enum-value :mmal-enotready) 10))
       (fiveam:is (= (enum-value :mmal-econfig)   11))
       (fiveam:is (= (enum-value :mmal-eisconn)   12))

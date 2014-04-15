@@ -9,8 +9,8 @@
 (defconstant +mmal-version-major+ 0)
 (defconstant +mmal-version-minor+ 1)
 
-(defconstant +mmal-version+ (dpb (byte 16 16) +version-major+
-                                 (dpb (byte 16 0) +version-minor+ 0)))
+(defconstant +mmal-version+ (dpb (byte 16 16) +mmal-version-major+
+                                 (dpb (byte 16 0) +mmal-version-minor+ 0)))
 
 (defun mmal-version-to-major (version)
   (ldb (byte 16 16) version))
