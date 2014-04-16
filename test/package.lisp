@@ -36,3 +36,24 @@
 
 (defun pi-mmal-symbol-macrop (symbol)
   (macro-function (pi-mmal-symbol symbol)))
+
+(defmacro check-external-constant (symbol &optional (value nil value-p))
+  `(progn
+     (fiveam:is (pi-mmal-symbol-externalp ,symbol))
+     (fiveam:is (pi-mmal-symbol-constantp ,symbol))
+     ,@(when value-p
+         `((fiveam:is (= (symbol-value (pi-mmal-symbol ,symbol)) ,value))))))
+
+(defmacro check-external-function (symbol)
+  `(progn
+     (fiveam:is (pi-mmal-symbol-externalp ,symbol))
+     (fiveam:is (pi-mmal-symbol-functionp ,symbol))))
+
+(defmacro check-external-struct (symbol &optional (size nil size-p))
+  `(progn
+     (fiveam:is (pi-mmal-symbol-externalp ,symbol))
+     ,@(when size-p
+         `((fiveam:is (= (cffi:foreign-type-size
+                          `(:struct ,(pi-mmal-symbol ,symbol)))
+                         ,size))))))
+

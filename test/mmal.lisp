@@ -7,24 +7,19 @@
 (fiveam:in-suite mmal-exports)
 
 (fiveam:test mmal-major-version-test
-  (fiveam:is (pi-mmal-symbol-externalp :+mmal-version-major+))
-  (fiveam:is (pi-mmal-symbol-constantp :+mmal-version-major+)))
+  (check-external-constant :+mmal-version-major+ 0))
 
 (fiveam:test mmal-minor-version-test
-  (fiveam:is (pi-mmal-symbol-externalp :+mmal-version-minor+))
-  (fiveam:is (pi-mmal-symbol-constantp :+mmal-version-minor+)))
+  (check-external-constant :+mmal-version-minor+ 1))
 
 (fiveam:test mmal-version-test
-  (fiveam:is (pi-mmal-symbol-externalp :+mmal-version+))
-  (fiveam:is (pi-mmal-symbol-constantp :+mmal-version+)))
+  (check-external-constant :+mmal-version+))
 
 (fiveam:test mmal-version-to-major-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-version-to-major))
-  (fiveam:is (pi-mmal-symbol-functionp :mmal-version-to-major)))
+  (check-external-function :mmal-version-to-major))
 
 (fiveam:test mmal-version-to-minor-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-version-to-minor))
-  (fiveam:is (pi-mmal-symbol-functionp :mmal-version-to-minor)))
+  (check-external-function :mmal-version-to-minor))
 
 (fiveam:test mmal-version-value-test
   (let ((version (symbol-value (pi-mmal-symbol :+mmal-version+)))

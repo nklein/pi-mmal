@@ -30,21 +30,13 @@
       (fiveam:is (= (enum-value :mmal-status-max) #x7FFFFFFF)))))
 
 (fiveam:test mmal-time-unknown-test
-  (fiveam:is (pi-mmal-symbol-externalp :+mmal-time-unknown+))
-  (fiveam:is (= (symbol-value (pi-mmal-symbol :+mmal-time-unknown+))
-                #x8000000000000000)))
+  (check-external-constant :+mmal-time-unknown+ #x8000000000000000))
 
 (fiveam:test mmal-rect-t-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-rect-t))
-  (fiveam:is (= (cffi:foreign-type-size
-                 `(:struct ,(pi-mmal-symbol :mmal-rect-t)))
-                16)))
+  (check-external-struct :mmal-rect-t 16))
 
 (fiveam:test mmal-rational-t-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-rational-t))
-  (fiveam:is (= (cffi:foreign-type-size
-                 `(:struct ,(pi-mmal-symbol :mmal-rational-t)))
-                8)))
+  (check-external-struct :mmal-rational-t 8))
 
 (fiveam:test mmal-fourcc-t-test
   (fiveam:is (pi-mmal-symbol-externalp :mmal-fourcc-t))

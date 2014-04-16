@@ -22,35 +22,23 @@
 (fiveam:test mmal-port-capability-test
   (flet ((value (keyword)
            (symbol-value (pi-mmal-symbol keyword))))
-    (fiveam:is (pi-mmal-symbol-externalp :+mmal-port-capability-passthrough+))
-    (fiveam:is (= (value :+mmal-port-capability-passthrough+) 1))
-
-    (fiveam:is (pi-mmal-symbol-externalp :+mmal-port-capability-allocation+))
-    (fiveam:is (= (value :+mmal-port-capability-allocation+) 2))
-
-    (fiveam:is (pi-mmal-symbol-externalp
-                 :+mmal-port-capability-supports-event-format-change+))
-    (fiveam:is (= (value :+mmal-port-capability-supports-event-format-change+)
-                  4))))
+    (check-external-constant :+mmal-port-capability-passthrough+ 1)
+    (check-external-constant :+mmal-port-capability-allocation+  2)
+    (check-external-constant
+     :+mmal-port-capability-supports-event-format-change+ 4)))
 
 (fiveam:test mmal-port-t-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-t))
-  (fiveam:is (= (cffi:foreign-type-size
-                 `(:struct ,(pi-mmal-symbol :mmal-port-t)))
-                64)))
+  (check-external-struct :mmal-port-t 64))
 
 (fiveam:test mmal-port-format-commit-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-format-commit))
-  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-format-commit)))
+  (check-external-function :mmal-port-format-commit))
 
 (fiveam:test def-mmal-port-bh-cb-test
   (fiveam:is (pi-mmal-symbol-externalp :def-mmal-port-bh-cb))
   (fiveam:is (pi-mmal-symbol-macrop :def-mmal-port-bh-cb))*)
 
 (fiveam:test mmal-port-enable-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-enable))
-  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-enable)))
+  (check-external-function :mmal-port-enable))
 
 (fiveam:test mmal-port-disable-test
-  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-disable))
-  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-disable)))
+  (check-external-function :mmal-port-disable))
