@@ -30,3 +30,6 @@
 
 (defun pi-mmal-symbol-functionp (symbol)
   (functionp (symbol-function (pi-mmal-symbol symbol))))
+
+(defun pi-mmal-symbol-macrop (symbol)
+  (macro-function (pi-mmal-symbol symbol)))

@@ -38,3 +38,19 @@
   (fiveam:is (= (cffi:foreign-type-size
                  `(:struct ,(pi-mmal-symbol :mmal-port-t)))
                 64)))
+
+(fiveam:test mmal-port-format-commit-test
+  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-format-commit))
+  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-format-commit)))
+
+(fiveam:test def-mmal-port-bh-cb-test
+  (fiveam:is (pi-mmal-symbol-externalp :def-mmal-port-bh-cb))
+  (fiveam:is (pi-mmal-symbol-macrop :def-mmal-port-bh-cb))*)
+
+(fiveam:test mmal-port-enable-test
+  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-enable))
+  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-enable)))
+
+(fiveam:test mmal-port-disable-test
+  (fiveam:is (pi-mmal-symbol-externalp :mmal-port-disable))
+  (fiveam:is (pi-mmal-symbol-functionp :mmal-port-disable)))

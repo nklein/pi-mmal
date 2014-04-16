@@ -16,7 +16,11 @@
            :+mmal-port-capability-allocation+
            :+mmal-port-capability-supports-event-format-change+
            :mmal-port-private-t
-           :mmal-port-t)
+           :mmal-port-t
+           :mmal-port-format-commit
+           :def-mmal-port-bh-cb
+           :mmal-port-enable
+           :mmal-port-disable)
   (:export :mmal-component-private-t    ; mmal_components.h
            :mmal-component-t
            :mmal-component-create

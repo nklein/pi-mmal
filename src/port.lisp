@@ -34,3 +34,18 @@
   (component (:pointer (:struct mmal-component-t)))
   (userdata (:pointer (:struct mmal-port-userdata-t)))
   (capabilities :uint32))
+
+(cffi:defcfun "mmal_port_format_commit" mmal-status-t
+  (port (:pointer (:struct mmal-port-t))))
+
+(defmacro def-mmal-port-bh-cb (name (port buffer) &body body)
+  `(cffi:defcallback ,name :void ((,port (:pointer (:struct mmal-port-t)))
+                                  (,buffer (:pointer (:struct mmal-buffer-header-t))))
+     ,@body))
+
+(cffi:defcfun "mmal_port_enable" mmal-status-t
+  (port (:pointer (:struct mmal-port-t)))
+  (cb :pointer))
+
+(cffi:defcfun "mmal_port_disable" mmal-status-t
+  (port (:pointer (:struct mmal-port-t))))
