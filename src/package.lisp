@@ -11,16 +11,6 @@
            :mmal-rational-t
            :+mmal-time-unknown+
            :mmal-fourcc-t)
-  (:export :mmal-port-type-t            ; mmal_port.h
-           :+mmal-port-capability-passthrough+
-           :+mmal-port-capability-allocation+
-           :+mmal-port-capability-supports-event-format-change+
-           :mmal-port-private-t
-           :mmal-port-t
-           :mmal-port-format-commit
-           :def-mmal-port-bh-cb
-           :mmal-port-enable
-           :mmal-port-disable)
   (:export :mmal-es-type-t              ; mmal_format.h
            :mmal-video-format-t
            :mmal-audio-format-t
@@ -47,6 +37,16 @@
            :+mmal-es-format-compare-flag-video-color-space+
            :+mmal-es-format-compare-flag-es-other+
            :mmal-format-compare)
+  (:export :mmal-port-type-t            ; mmal_port.h
+           :+mmal-port-capability-passthrough+
+           :+mmal-port-capability-allocation+
+           :+mmal-port-capability-supports-event-format-change+
+           :mmal-port-private-t
+           :mmal-port-t
+           :mmal-port-format-commit
+           :def-mmal-port-bh-cb
+           :mmal-port-enable
+           :mmal-port-disable)
   (:export :mmal-component-private-t    ; mmal_components.h
            :mmal-component-t
            :mmal-component-create

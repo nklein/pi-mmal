@@ -8,10 +8,11 @@
       :components ((:file "package")
                    (:file "mmal" :depends-on ("package"))
                    (:file "types" :depends-on ("package"))
-                   (:file "port" :depends-on ("package"
-                                              "types"))
                    (:file "format" :depends-on ("package"
                                                 "types"))
+                   (:file "port" :depends-on ("package"
+                                              "types"
+                                              "format"))
                    (:file "component" :depends-on ("package"
                                                    "types"
                                                    "port"))))))

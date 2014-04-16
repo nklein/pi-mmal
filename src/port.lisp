@@ -23,7 +23,7 @@
   (index :uint16)
   (index-all :uint16)
   (is-enabled :uint32)
-  (format :pointer)                     ; XXX make MMAL_ES_FORMAT_T
+  (format (:pointer (:struct mmal-es-format-t)))
   (buffer-num-min :uint32)
   (buffer-size-min :uint32)
   (buffer-alignment-min :uint32)
