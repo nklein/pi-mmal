@@ -55,4 +55,21 @@
            :mmal-component-release
            :mmal-component-destroy
            :mmal-component-enable
-           :mmal-component-disable))
+           :mmal-component-disable)
+                                        ; util/mmal_default_components.h
+  (:export :+mmal-component-default-container-reader+
+           :+mmal-component-default-container-writer+
+           :+mmal-component-default-video-decoder+
+           :+mmal-component-default-video-encoder+
+           :+mmal-component-default-video-renderer+
+           :+mmal-component-default-image-decoder+
+           :+mmal-component-default-image-encoder+
+           :+mmal-component-default-camera+
+           :+mmal-component-default-video-converter+
+           :+mmal-component-default-splitter+
+           :+mmal-component-default-scheduler+
+           :+mmal-component-default-video-injecter+
+           :+mmal-component-default-video-splitter+
+           :+mmal-component-default-audio-decoder+
+           :+mmal-component-default-audio-renderer+
+           :+mmal-component-default-miracast+))

@@ -15,7 +15,9 @@
                                               "format"))
                    (:file "component" :depends-on ("package"
                                                    "types"
-                                                   "port"))))))
+                                                   "port"))
+                   (:file "util/default-components"
+                          :depends-on ("package"))))))
 
 (defmethod asdf:perform ((op asdf:test-op)
                          (system (eql (asdf:find-system :pi-mmal))))

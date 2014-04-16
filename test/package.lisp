@@ -15,7 +15,8 @@
                          mmal-types-exports
                          mmal-port-exports
                          mmal-format-exports
-                         mmal-component-exports)))
+                         mmal-component-exports
+                         mmal-util-default-components-exports)))
            (results (reduce #'append suites
                             :key #'fiveam:run
                             :initial-value nil)))
@@ -42,7 +43,8 @@
      (fiveam:is (pi-mmal-symbol-externalp ,symbol))
      (fiveam:is (pi-mmal-symbol-constantp ,symbol))
      ,@(when value-p
-         `((fiveam:is (= (symbol-value (pi-mmal-symbol ,symbol)) ,value))))))
+         `((fiveam:is (equal ,value
+                             (symbol-value (pi-mmal-symbol ,symbol))))))))
 
 (defmacro check-external-function (symbol)
   `(progn
@@ -53,7 +55,7 @@
   `(progn
      (fiveam:is (pi-mmal-symbol-externalp ,symbol))
      ,@(when size-p
-         `((fiveam:is (= (cffi:foreign-type-size
-                          `(:struct ,(pi-mmal-symbol ,symbol)))
-                         ,size))))))
+         `((fiveam:is (= ,size
+                         (cffi:foreign-type-size
+                          `(:struct ,(pi-mmal-symbol ,symbol)))))))))
 
