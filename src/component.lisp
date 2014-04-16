@@ -16,6 +16,19 @@
   (port (:pointer (:pointer :void)))
   (id :uint32))
 
+(defun mmal-component-output-num (component-ptr)
+  (cffi:foreign-slot-value component-ptr
+                           '(:struct mmal-component-t)
+                           'output-num))
+
+(defun mmal-component-output (component-ptr index)
+  (check-type index (integer 0 *))
+  (assert (< index (mmal-component-output-num component-ptr)))
+  (let ((output-ptr (cffi:foreign-slot-value component-ptr
+                                             '(:struct mmal-component-t)
+                                             'output)))
+    (cffi:mem-aref output-ptr '(:struct mmal-port-t) index)))
+
 (cffi:defcfun "mmal_component_create" mmal-status-t
   (name :string)
   (component-ptr-ptr (:pointer (:pointer (:struct mmal-component-t)))))

@@ -13,6 +13,10 @@
 (fiveam:test mmal-component-t-test
   (check-external-struct :mmal-component-t 48))
 
+(fiveam:test mmal-component-t-accessor-test
+  (check-external-function :mmal-component-output-num)
+  (check-external-function :mmal-component-output))
+
 (fiveam:test mmal-component-create-test
   (check-external-function :mmal-component-create))
 

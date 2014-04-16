@@ -49,6 +49,8 @@
            :mmal-port-disable)
   (:export :mmal-component-private-t    ; mmal_components.h
            :mmal-component-t
+           :mmal-component-output-num
+           :mmal-component-output
            :mmal-component-create
            :mmal-component-create*
            :mmal-component-acquire
