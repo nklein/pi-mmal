@@ -6,13 +6,16 @@
 (in-package :pi-mmal-test)
 
 (defun run-all-tests (&key (debug-on-error fiveam:*debug-on-error*)
-                           (debug-on-failure fiveam:*debug-on-failure*))
+                           (debug-on-failure fiveam:*debug-on-failure*)
+                           suites)
   (let ((fiveam:*debug-on-error* debug-on-error)
         (fiveam:*debug-on-failure* debug-on-failure))
-    (let* ((suites '(mmal-exports
-                     mmal-types-exports
-                     mmal-port-exports
-                     mmal-component-exports))
+    (let* ((suites (or suites
+                       '(mmal-exports
+                         mmal-types-exports
+                         mmal-port-exports
+                         mmal-format-exports
+                         mmal-component-exports)))
            (results (reduce #'append suites
                             :key #'fiveam:run
                             :initial-value nil)))

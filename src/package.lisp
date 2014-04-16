@@ -21,6 +21,32 @@
            :def-mmal-port-bh-cb
            :mmal-port-enable
            :mmal-port-disable)
+  (:export :mmal-es-type-t              ; mmal_format.h
+           :mmal-video-format-t
+           :mmal-audio-format-t
+           :mmal-subpicture-format-t
+           :mmal-es-specific-format-t
+           :+mmal-es-format-flag-framed+
+           :+mmal-encoding-unknown+
+           :+mmal-encoding-variant-default+
+           :mmal-es-format-t
+           :mmal-format-alloc
+           :mmal-format-free
+           :mmal-format-extradata-alloc
+           :mmal-format-copy
+           :mmal-format-full-copy
+           :+mmal-es-format-compare-flag-type+
+           :+mmal-es-format-compare-flag-encoding+
+           :+mmal-es-format-compare-flag-bitrate+
+           :+mmal-es-format-compare-flag-flags+
+           :+mmal-es-format-compare-flag-extradata+
+           :+mmal-es-format-compare-flag-video-resolution+
+           :+mmal-es-format-compare-flag-video-cropping+
+           :+mmal-es-format-compare-flag-video-frame-rate+
+           :+mmal-es-format-compare-flag-video-aspect-ratio+
+           :+mmal-es-format-compare-flag-video-color-space+
+           :+mmal-es-format-compare-flag-es-other+
+           :mmal-format-compare)
   (:export :mmal-component-private-t    ; mmal_components.h
            :mmal-component-t
            :mmal-component-create

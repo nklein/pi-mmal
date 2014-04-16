@@ -10,6 +10,8 @@
                    (:file "types" :depends-on ("package"))
                    (:file "port" :depends-on ("package"
                                               "types"))
+                   (:file "format" :depends-on ("package"
+                                                "types"))
                    (:file "component" :depends-on ("package"
                                                    "types"
                                                    "port"))))))
