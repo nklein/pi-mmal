@@ -14,6 +14,7 @@
   (check-external-struct :mmal-component-t 48))
 
 (fiveam:test mmal-component-t-accessor-test
+  (check-external-function :mmal-component-control)
   (check-external-function :mmal-component-output-num)
   (check-external-function :mmal-component-output))
 
