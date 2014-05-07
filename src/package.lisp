@@ -37,6 +37,10 @@
            :+mmal-es-format-compare-flag-video-color-space+
            :+mmal-es-format-compare-flag-es-other+
            :mmal-format-compare)
+  (:export :mmal-buffer-header-video-specific-t
+           :mmal-buffer-header-type-specific-t
+           :mmal-buffer-header-private-t
+           :mmal-buffer-header-t)
   (:export :mmal-port-type-t            ; mmal_port.h
            :+mmal-port-capability-passthrough+
            :+mmal-port-capability-allocation+

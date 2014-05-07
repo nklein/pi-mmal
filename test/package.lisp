@@ -13,6 +13,7 @@
     (let* ((suites (or suites
                        '(mmal-exports
                          mmal-types-exports
+                         mmal-buffer-exports
                          mmal-port-exports
                          mmal-format-exports
                          mmal-component-exports
@@ -58,4 +59,12 @@
          `((fiveam:is (= ,size
                          (cffi:foreign-type-size
                           `(:struct ,(pi-mmal-symbol ,symbol)))))))))
+
+(defmacro check-external-union (symbol &optional (size nil size-p))
+  `(progn
+     (fiveam:is (pi-mmal-symbol-externalp ,symbol))
+     ,@(when size-p
+         `((fiveam:is (= ,size
+                         (cffi:foreign-type-size
+                          `(:union ,(pi-mmal-symbol ,symbol)))))))))
 

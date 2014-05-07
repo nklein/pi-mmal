@@ -10,6 +10,7 @@
                    (:file "types" :depends-on ("package"))
                    (:file "format" :depends-on ("package"
                                                 "types"))
+                   (:file "buffer" :depends-on ("package"))
                    (:file "port" :depends-on ("package"
                                               "types"
                                               "format"))
