@@ -3,26 +3,24 @@
     :author "Patrick Stein <pat@nklein.com>"
     :license "Public Domain"
     :depends-on (#:cffi)
+    :in-order-to ((asdf:test-op (asdf:load-op :pi-mmal-test)))
+    :perform (asdf:test-op (o c)
+               (uiop:symbol-call :pi-mmal-test :run-all-tests))
     :components
     ((:module "src"
+      :serial t
       :components ((:file "package")
-                   (:file "mmal" :depends-on ("package"))
-                   (:file "types" :depends-on ("package"))
-                   (:file "format" :depends-on ("package"
-                                                "types"))
-                   (:file "buffer" :depends-on ("package"))
-                   (:file "port" :depends-on ("package"
-                                              "types"
-                                              "format"))
-                   (:file "component" :depends-on ("package"
-                                                   "types"
-                                                   "port"))
-                   (:file "util/default-components"
-                          :depends-on ("package"))))))
-
-(defmethod asdf:perform ((op asdf:test-op)
-                         (system (eql (asdf:find-system :pi-mmal))))
-  (let ((test-package :pi-mmal-test))
-    (asdf:load-system test-package)
-    (funcall (symbol-function (find-symbol (symbol-name :run-all-tests)
-                                           test-package)))))
+                   (:file "preamble")
+                   (:file "mmal")
+                   (:file "common")
+                   (:file "types")
+                   (:file "port")
+                   (:file "component")
+                   (:file "parameters")
+                   (:file "metadata")
+                   (:file "queue")
+                   (:file "pool")
+                   (:file "events")
+                   (:file "format")
+                   (:file "buffer")
+                   (:file "util/default-components")))))

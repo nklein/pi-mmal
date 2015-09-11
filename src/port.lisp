@@ -1,51 +1,125 @@
-(in-package :pi-mmal)
+(in-package #:pi-mmal)
 
-(cffi:defcenum mmal-port-type-t
-  :mmal-port-type-unknown
-  :mmal-port-type-control
-  :mmal-port-type-input
-  :mmal-port-type-output
-  :mmal-port-type-clock
-  (:mmal-port-type-invalid #xFFFFFFFF))
+(cffi:defcenum #.(swig-lispify "MMAL_PORT_TYPE_T" 'enumname)
+	(#.(swig-lispify "MMAL_PORT_TYPE_UNKNOWN" 'enumvalue :keyword) #.0)
+	#.(swig-lispify "MMAL_PORT_TYPE_CONTROL" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_PORT_TYPE_INPUT" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_PORT_TYPE_OUTPUT" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_PORT_TYPE_CLOCK" 'enumvalue :keyword)
+	(#.(swig-lispify "MMAL_PORT_TYPE_INVALID" 'enumvalue :keyword)
+           #.#xffffffff))
+(cl:export '#.(swig-lispify "MMAL_PORT_TYPE_T" 'enumname))
 
-(defconstant +mmal-port-capability-passthrough+ #x01)
-(defconstant +mmal-port-capability-allocation+ #x02)
-(defconstant +mmal-port-capability-supports-event-format-change+ #x04)
+(cl:defconstant #.(swig-lispify "MMAL_PORT_CAPABILITY_PASSTHROUGH" 'constant)
+  #x01)
+(cl:export '#.(swig-lispify "MMAL_PORT_CAPABILITY_PASSTHROUGH" 'constant))
 
-(cffi:defcstruct mmal-port-private-t)
-(cffi:defcstruct mmal-component-t)
-(cffi:defcstruct mmal-port-userdata-t)
+(cl:defconstant #.(swig-lispify "MMAL_PORT_CAPABILITY_ALLOCATION" 'constant)
+  #x02)
+(cl:export '#.(swig-lispify "MMAL_PORT_CAPABILITY_ALLOCATION" 'constant))
 
-(cffi:defcstruct mmal-port-t
-  (priv (:pointer (:struct mmal-port-private-t)))
-  (name :string)
-  (type mmal-port-type-t)
-  (index :uint16)
-  (index-all :uint16)
-  (is-enabled :uint32)
-  (format (:pointer (:struct mmal-es-format-t)))
-  (buffer-num-min :uint32)
-  (buffer-size-min :uint32)
-  (buffer-alignment-min :uint32)
-  (buffer-num-recommended :uint32)
-  (buffer-size-recommended :uint32)
-  (buffer-num :uint32)
-  (buffer-size :uint32)
-  (component (:pointer (:struct mmal-component-t)))
-  (userdata (:pointer (:struct mmal-port-userdata-t)))
-  (capabilities :uint32))
+(cl:defconstant #.(swig-lispify "MMAL_PORT_CAPABILITY_SUPPORTS_EVENT_FORMAT_CHANGE" 'constant)
+  #x04)
+(cl:export '#.(swig-lispify "MMAL_PORT_CAPABILITY_SUPPORTS_EVENT_FORMAT_CHANGE" 'constant))
 
-(cffi:defcfun "mmal_port_format_commit" mmal-status-t
-  (port (:pointer (:struct mmal-port-t))))
+(cffi:defcstruct #.(swig-lispify "MMAL_PORT_T" 'classname)
+	(#.(swig-lispify "priv" 'slotname) :pointer)
+	(#.(swig-lispify "name" 'slotname) :string)
+	(#.(swig-lispify "type" 'slotname)
+           #.(swig-lispify "MMAL_PORT_TYPE_T" 'enumname))
+	(#.(swig-lispify "index" 'slotname) :unsigned-short)
+	(#.(swig-lispify "index_all" 'slotname) :unsigned-short)
+	(#.(swig-lispify "is_enabled" 'slotname) :unsigned-int)
+	(#.(swig-lispify "format" 'slotname) :pointer)
+	(#.(swig-lispify "buffer_num_min" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_size_min" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_alignment_min" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_num_recommended" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_size_recommended" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_num" 'slotname) :unsigned-int)
+	(#.(swig-lispify "buffer_size" 'slotname) :unsigned-int)
+	(#.(swig-lispify "component" 'slotname) :pointer)
+	(#.(swig-lispify "userdata" 'slotname) :pointer)
+	(#.(swig-lispify "capabilities" 'slotname) :unsigned-int))
+(cl:export '#.(swig-lispify "MMAL_PORT_T" 'classname))
 
-(defmacro def-mmal-port-bh-cb (name (port buffer) &body body)
-  `(cffi:defcallback ,name :void ((,port (:pointer (:struct mmal-port-t)))
-                                  (,buffer (:pointer (:struct mmal-buffer-header-t))))
-     ,@body))
+(cl:export '#.(swig-lispify "priv" 'slotname))
+(cl:export '#.(swig-lispify "name" 'slotname))
+(cl:export '#.(swig-lispify "type" 'slotname))
+(cl:export '#.(swig-lispify "index" 'slotname))
+(cl:export '#.(swig-lispify "index_all" 'slotname))
+(cl:export '#.(swig-lispify "is_enabled" 'slotname))
+(cl:export '#.(swig-lispify "format" 'slotname))
+(cl:export '#.(swig-lispify "buffer_num_min" 'slotname))
+(cl:export '#.(swig-lispify "buffer_size_min" 'slotname))
+(cl:export '#.(swig-lispify "buffer_alignment_min" 'slotname))
+(cl:export '#.(swig-lispify "buffer_num_recommended" 'slotname))
+(cl:export '#.(swig-lispify "buffer_size_recommended" 'slotname))
+(cl:export '#.(swig-lispify "buffer_num" 'slotname))
+(cl:export '#.(swig-lispify "buffer_size" 'slotname))
+(cl:export '#.(swig-lispify "component" 'slotname))
+(cl:export '#.(swig-lispify "userdata" 'slotname))
+(cl:export '#.(swig-lispify "capabilities" 'slotname))
 
-(cffi:defcfun "mmal_port_enable" mmal-status-t
-  (port (:pointer (:struct mmal-port-t)))
+(cffi:defctype #.(swig-lispify "MMAL_PORT_T" 'typename) (:struct #.(swig-lispify "MMAL_PORT_T" 'classname)))
+(cl:export '#.(swig-lispify "MMAL_PORT_T" 'typename))
+
+(cffi:defcfun ("mmal_port_format_commit" #.(swig-lispify "mmal_port_format_commit" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer))
+(cl:export '#.(swig-lispify "mmal_port_format_commit" 'function))
+
+(cffi:defctype #.(swig-lispify "MMAL_PORT_BH_CB_T" 'typename) :pointer)
+(cl:export '#.(swig-lispify "MMAL_PORT_BH_CB_T" 'typename))
+
+(cffi:defcfun ("mmal_port_enable" #.(swig-lispify "mmal_port_enable" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
   (cb :pointer))
+(cl:export '#.(swig-lispify "mmal_port_enable" 'function))
 
-(cffi:defcfun "mmal_port_disable" mmal-status-t
-  (port (:pointer (:struct mmal-port-t))))
+(cffi:defcfun ("mmal_port_disable" #.(swig-lispify "mmal_port_disable" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer))
+(cl:export '#.(swig-lispify "mmal_port_disable" 'function))
+
+(cffi:defcfun ("mmal_port_flush" #.(swig-lispify "mmal_port_flush" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer))
+(cl:export '#.(swig-lispify "mmal_port_flush" 'function))
+
+(cffi:defcfun ("mmal_port_parameter_set" #.(swig-lispify "mmal_port_parameter_set" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
+  (param :pointer))
+(cl:export '#.(swig-lispify "mmal_port_parameter_set" 'function))
+
+(cffi:defcfun ("mmal_port_parameter_get" #.(swig-lispify "mmal_port_parameter_get" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
+  (param :pointer))
+(cl:export '#.(swig-lispify "mmal_port_parameter_get" 'function))
+
+(cffi:defcfun ("mmal_port_send_buffer" #.(swig-lispify "mmal_port_send_buffer" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
+  (buffer :pointer))
+(cl:export '#.(swig-lispify "mmal_port_send_buffer" 'function))
+
+(cffi:defcfun ("mmal_port_connect" #.(swig-lispify "mmal_port_connect" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
+  (other_port :pointer))
+(cl:export '#.(swig-lispify "mmal_port_connect" 'function))
+
+(cffi:defcfun ("mmal_port_disconnect" #.(swig-lispify "mmal_port_disconnect" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer))
+(cl:export '#.(swig-lispify "mmal_port_disconnect" 'function))
+
+(cffi:defcfun ("mmal_port_payload_alloc" #.(swig-lispify "mmal_port_payload_alloc" 'function)) :pointer
+  (port :pointer)
+  (payload_size :unsigned-int))
+
+(cl:export '#.(swig-lispify "mmal_port_payload_alloc" 'function))
+(cffi:defcfun ("mmal_port_payload_free" #.(swig-lispify "mmal_port_payload_free" 'function)) :void
+  (port :pointer)
+  (payload :pointer))
+(cl:export '#.(swig-lispify "mmal_port_payload_free" 'function))
+
+(cffi:defcfun ("mmal_port_event_get" #.(swig-lispify "mmal_port_event_get" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (port :pointer)
+  (buffer :pointer)
+  (event :unsigned-int))
+(cl:export '#.(swig-lispify "mmal_port_event_get" 'function))

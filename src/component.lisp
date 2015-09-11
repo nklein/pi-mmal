@@ -1,63 +1,73 @@
-(in-package :pi-mmal)
+(in-package #:pi-mmal)
 
-(cffi:defcstruct mmal-component-private-t)
+(cffi:defctype #.(swig-lispify "MMAL_COMPONENT_PRIVATE_T" 'typename) :pointer)
+(cl:export '#.(swig-lispify "MMAL_COMPONENT_PRIVATE_T" 'typename))
 
-(cffi:defcstruct mmal-component-t
-  (priv (:pointer (:struct mmal-component-private-t)))
-  (userdata (:pointer :void))
+(cffi:defcstruct #.(swig-lispify "MMAL_COMPONENT_T" 'classname)
+	(#.(swig-lispify "priv" 'slotname) :pointer)
+	(#.(swig-lispify "userdata" 'slotname) :pointer)
+	(#.(swig-lispify "name" 'slotname) :string)
+	(#.(swig-lispify "is_enabled" 'slotname) :unsigned-int)
+	(#.(swig-lispify "control" 'slotname) :pointer)
+	(#.(swig-lispify "input_num" 'slotname) :unsigned-int)
+	(#.(swig-lispify "input" 'slotname) :pointer)
+	(#.(swig-lispify "output_num" 'slotname) :unsigned-int)
+	(#.(swig-lispify "output" 'slotname) :pointer)
+	(#.(swig-lispify "clock_num" 'slotname) :unsigned-int)
+	(#.(swig-lispify "clock" 'slotname) :pointer)
+	(#.(swig-lispify "port_num" 'slotname) :unsigned-int)
+	(#.(swig-lispify "port" 'slotname) :pointer)
+	(#.(swig-lispify "id" 'slotname) :unsigned-int))
+(cl:export '#.(swig-lispify "MMAL_COMPONENT_T" 'classname))
+
+(cl:export '#.(swig-lispify "priv" 'slotname))
+(cl:export '#.(swig-lispify "userdata" 'slotname))
+(cl:export '#.(swig-lispify "name" 'slotname))
+(cl:export '#.(swig-lispify "is_enabled" 'slotname))
+(cl:export '#.(swig-lispify "control" 'slotname))
+(cl:export '#.(swig-lispify "input_num" 'slotname))
+(cl:export '#.(swig-lispify "input" 'slotname))
+(cl:export '#.(swig-lispify "output_num" 'slotname))
+(cl:export '#.(swig-lispify "output" 'slotname))
+(cl:export '#.(swig-lispify "clock_num" 'slotname))
+(cl:export '#.(swig-lispify "clock" 'slotname))
+(cl:export '#.(swig-lispify "port_num" 'slotname))
+(cl:export '#.(swig-lispify "port" 'slotname))
+(cl:export '#.(swig-lispify "id" 'slotname))
+
+(cffi:defctype #.(swig-lispify "MMAL_COMPONENT_T" 'typename)
+  (:struct #.(swig-lispify "MMAL_COMPONENT_T" 'classname)))
+(cl:export '#.(swig-lispify "MMAL_COMPONENT_T" 'typename))
+
+(cffi:defcfun ("mmal_component_create" #.(swig-lispify "mmal_component_create" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
   (name :string)
-  (is-enabled :uint32)
-  (control (:pointer (:struct mmal-port-t)))
-  (input-num :uint32)
-  (input (:pointer (:pointer (:struct mmal-port-t))))
-  (output-num :uint32)
-  (output (:pointer (:pointer (:struct mmal-port-t))))
-  (port-num :uint32)
-  (port (:pointer (:pointer (:struct mmal-port-t))))
-  (id :uint32))
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_create" 'function))
 
-(defun %mmal-component-slot-value (component-ptr slot)
-  (cffi:foreign-slot-value component-ptr
-                           '(:struct mmal-component-t)
-                           slot))
+(cffi:defcfun ("mmal_component_acquire" #.(swig-lispify "mmal_component_acquire" 'function)) :void
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_acquire" 'function))
 
-(defun mmal-component-control (component-ptr)
-  (%mmal-component-slot-value component-ptr 'control))
+(cffi:defcfun ("mmal_component_release" #.(swig-lispify "mmal_component_release" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_release" 'function))
 
-(defun mmal-component-output-num (component-ptr)
-  (%mmal-component-slot-value component-ptr 'output-num))
+(cffi:defcfun ("mmal_component_destroy" #.(swig-lispify "mmal_component_destroy" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_destroy" 'function))
 
+(cffi:defcfun ("mmal_component_enable" #.(swig-lispify "mmal_component_enable" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_enable" 'function))
+
+(cffi:defcfun ("mmal_component_disable" #.(swig-lispify "mmal_component_disable" 'function)) #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+  (component :pointer))
+(cl:export '#.(swig-lispify "mmal_component_disable" 'function))
+
+#|
 (defun mmal-component-output (component-ptr index)
   (check-type index (integer 0 *))
   (assert (< index (mmal-component-output-num component-ptr)))
   (let ((output-ptr (%mmal-component-slot-value component-ptr 'output)))
     (cffi:mem-aref output-ptr '(:struct mmal-port-t) index)))
-
-(cffi:defcfun "mmal_component_create" mmal-status-t
-  (name :string)
-  (component-ptr-ptr (:pointer (:pointer (:struct mmal-component-t)))))
-
-(defun mmal-component-create* (name)
-  (check-type name string)
-  (cffi:with-foreign-object (component-ptr-ptr
-                             '(:pointer (:struct mmal-component-t)))
-    (let ((ret (mmal-component-create name component-ptr-ptr)))
-      (values ret
-              (when (= ret :mmal-success)
-                (cffi:mem-aref component-ptr-ptr
-                               '(:pointer (:struct mmal-component-t))))))))
-
-(cffi:defcfun "mmal_component_acquire" mmal-status-t
-  (component-ptr (:pointer (:struct mmal-component-t))))
-
-(cffi:defcfun "mmal_component_release" mmal-status-t
-  (component-ptr (:pointer (:struct mmal-component-t))))
-
-(cffi:defcfun "mmal_component_destroy" mmal-status-t
-  (component-ptr (:pointer (:struct mmal-component-t))))
-
-(cffi:defcfun "mmal_component_enable" mmal-status-t
-  (component-ptr (:pointer (:struct mmal-component-t))))
-
-(cffi:defcfun "mmal_component_disable" mmal-status-t
-  (component-ptr (:pointer (:struct mmal-component-t))))
+|#

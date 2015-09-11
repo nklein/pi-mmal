@@ -1,35 +1,47 @@
-(in-package :pi-mmal)
+(in-package #:pi-mmal)
 
-(cffi:defcenum mmal-status-t
-  :mmal-success
-  :mmal-enomem
-  :mmal-enospc
-  :mmal-einval
-  :mmal-enosys
-  :mmal-enoent
-  :mmal-enxio
-  :mmal-eio
-  :mmal-espipe
-  :mmal-ecorrupt
-  :mmal-enotready
-  :mmal-econfig
-  :mmal-eisconn
-  :mmal-enotconn
-  :mmal-eagain
-  :mmal-efault
-  (:mmal-status-max #x7FFFFFFF))
+(cffi:defcenum #.(swig-lispify "MMAL_STATUS_T" 'enumname)
+	(#.(swig-lispify "MMAL_SUCCESS" 'enumvalue :keyword) #.0)
+	#.(swig-lispify "MMAL_ENOMEM" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENOSPC" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_EINVAL" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENOSYS" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENOENT" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENXIO" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_EIO" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ESPIPE" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ECORRUPT" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENOTREADY" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ECONFIG" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_EISCONN" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_ENOTCONN" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_EAGAIN" 'enumvalue :keyword)
+	#.(swig-lispify "MMAL_EFAULT" 'enumvalue :keyword)
+	(#.(swig-lispify "MMAL_STATUS_MAX" 'enumvalue :keyword) #.#x7FFFFFFF))
+(cl:export '#.(swig-lispify "MMAL_STATUS_T" 'enumname))
 
-(cffi:defcstruct mmal-rect-t
-  (x :int32)
-  (y :int32)
-  (width :int32)
-  (height :int32))
+(cffi:defcstruct #.(swig-lispify "MMAL_RECT_T" 'classname)
+	(#.(swig-lispify "x" 'slotname) :int)
+	(#.(swig-lispify "y" 'slotname) :int)
+	(#.(swig-lispify "width" 'slotname) :int)
+	(#.(swig-lispify "height" 'slotname) :int))
+(cl:export '#.(swig-lispify "MMAL_RECT_T" 'classname))
 
-(cffi:defcstruct mmal-rational-t
-  (num :int32)
-  (den :int32))
+(cl:export '#.(swig-lispify "x" 'slotname))
+(cl:export '#.(swig-lispify "y" 'slotname))
+(cl:export '#.(swig-lispify "width" 'slotname))
+(cl:export '#.(swig-lispify "height" 'slotname))
 
-(defconstant +mmal-time-unknown+ (dpb 1 (byte 1 63) 0))
+(cffi:defcstruct #.(swig-lispify "MMAL_RATIONAL_T" 'classname)
+	(#.(swig-lispify "num" 'slotname) :int)
+	(#.(swig-lispify "den" 'slotname) :int))
+(cl:export '#.(swig-lispify "MMAL_RATIONAL_T" 'classname))
 
+(cl:export '#.(swig-lispify "num" 'slotname))
+(cl:export '#.(swig-lispify "den" 'slotname))
 
-(cffi:defctype mmal-fourcc-t :uint32)
+(cl:defconstant #.(swig-lispify "MMAL_TIME_UNKNOWN" 'constant) (ash 1 63))
+(cl:export '#.(swig-lispify "MMAL_TIME_UNKNOWN" 'constant))
+
+(cffi:defctype #.(swig-lispify "MMAL_FOURCC_T" 'typename) :unsigned-int)
+(cl:export '#.(swig-lispify "MMAL_FOURCC_T" 'typename))
