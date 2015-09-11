@@ -6,9 +6,6 @@
 
 (cffi:use-foreign-library libmmal)
 
-(defconstant +mmal-version-major+ 0)
-(defconstant +mmal-version-minor+ 1)
-
 (defconstant +mmal-version+ (dpb (byte 16 16) +mmal-version-major+
                                  (dpb (byte 16 0) +mmal-version-minor+ 0)))
 

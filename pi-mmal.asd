@@ -23,4 +23,5 @@
                    (:file "events")
                    (:file "format")
                    (:file "buffer")
-                   (:file "util/default-components")))))
+                   (:file "util/default-components")
+                   (:file "library")))))
